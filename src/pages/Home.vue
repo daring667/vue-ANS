@@ -107,7 +107,7 @@ watch(filters, fetchItems)
 
 <template>
   <div class="header-container">
-    <h2 class="page-title">Все кроссовки</h2>
+    <h2 class="page-title">Все Товары</h2>
 
     <div class="controls-container">
       <select @change="onChangeSelect" class="sort-select">

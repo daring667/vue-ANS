@@ -27,8 +27,8 @@ const logout = () => {
       <div class="logo-container">
         <img src="/logo.png" alt="Logo" class="logo-img" />
         <div>
-          <h2 class="title">Vue Sneakers</h2>
-          <p class="subtitle">Магазин лучших кроссовок</p>
+          <h2 class="title">E-commerce App</h2>
+          <p class="subtitle">Доступный интернет-магазин для всех пользователей</p>
         </div>
       </div>
     </router-link>
@@ -36,13 +36,13 @@ const logout = () => {
     <ul class="nav-list">
       <li @click="() => emit('openDrawer')" class="nav-item">
         <img src="/cart.svg" alt="Cart" />
-        <b>{{ totalPrice }} руб.</b>
+        <b>{{ totalPrice }} тг.</b>
       </li>
 
       <router-link to="/favorites">
         <li class="nav-item">
           <img src="/heart.svg" alt="Cart" />
-          <span>Закладки</span>
+          <span>Избранное</span>
         </li>
       </router-link>
 

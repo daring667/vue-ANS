@@ -17,7 +17,7 @@ defineProps({
       <p>{{ title }}</p>
 
       <div class="bottom-row">
-        <b class="price">{{ price }} руб.</b>
+        <b class="price">{{ price }} тг.</b>
         <img @click="emit('onClickRemove')" class="remove-btn" src="/close.svg" />
       </div>
     </div>

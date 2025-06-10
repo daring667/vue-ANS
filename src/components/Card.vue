@@ -28,7 +28,7 @@ defineProps({
     <div class="bottom-row">
       <div class="price-block">
         <span class="price-label">Цена:</span>
-        <b>{{ price }} руб.</b>
+        <b>{{ price }} тг.</b>
       </div>
 
       <img

@@ -66,13 +66,13 @@ const buttonDisabled = computed(() => isCreating.value || cartIsEmpty.value)
         <div class="summary-line">
           <span>Итого:</span>
           <div class="dashed-line"></div>
-          <b>{{ totalPrice }} ₽</b>
+          <b>{{ totalPrice }} ₸</b>
         </div>
 
         <div class="summary-line">
           <span>Налог 5%:</span>
           <div class="dashed-line"></div>
-          <b>{{ vatPrice }} ₽</b>
+          <b>{{ vatPrice }} ₸</b>
         </div>
 
         <button :disabled="buttonDisabled" @click="createOrder" class="checkout-button">
