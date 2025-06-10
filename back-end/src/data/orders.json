@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "userId": 1,
+    "items": [
+      {
+        "id": 1,
+        "name": "Ноутбук XYZ",
+        "price": 1200,
+        "quantity": 1
+      },
+      {
+        "id": 2,
+        "name": "Смартфон ABC",
+        "price": 800,
+        "quantity": 2
+      }
+    ],
+    "total": 2800,
+    "date": "2025-06-10T03:53:31.449Z"
+  }
+]
