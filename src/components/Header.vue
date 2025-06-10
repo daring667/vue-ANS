@@ -1,18 +1,10 @@
 <script setup>
-import { ref, computed } from 'vue'
-import AuthModal from './AuthModal.vue'
-
 defineProps({
   totalPrice: Number
 })
 
 const emit = defineEmits(['openDrawer'])
-const showAuthModal = ref(false)
-const isAuth = computed(() => localStorage.getItem('isAuth') === 'true')
-
-const toggleAuthModal = () => {
-  showAuthModal.value = !showAuthModal.value
-}
+const isAuth = localStorage.getItem('isAuth') === 'true'
 
 const logout = () => {
   localStorage.removeItem('isAuth')
@@ -42,22 +34,22 @@ const logout = () => {
       <router-link to="/favorites">
         <li class="nav-item">
           <img src="/heart.svg" alt="Cart" />
-          <span>Избранное</span>
+          <span>Избранные</span>
         </li>
       </router-link>
 
-      <li v-if="!isAuth" @click="toggleAuthModal" class="nav-item">
-        <img src="/profile.svg" alt="Profile" />
-        <span>Войти</span>
-      </li>
+      <router-link v-if="!isAuth" to="/auth">
+        <li class="nav-item">
+          <img src="/profile.svg" alt="Profile" />
+          <span>Войти</span>
+        </li>
+      </router-link>
 
       <li v-else class="nav-item" @click="logout">
         <img src="/profile.svg" alt="Profile" />
         <span>Выйти</span>
       </li>
     </ul>
-
-    <AuthModal v-if="showAuthModal" @close="showAuthModal = false" />
   </header>
 </template>
 
@@ -86,7 +78,7 @@ const logout = () => {
   color: black;
   font-weight: 700;
   line-height: 1.75rem;
-  text-transform: uppercase;;
+  text-transform: uppercase;
 }
 
 .subtitle {

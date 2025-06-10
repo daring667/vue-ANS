@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <div class="auth-modal">
       <div class="auth-modal-content">
         <span class="close-btn" @click="$emit('close')">&times;</span>
@@ -151,4 +151,4 @@
       background-color: #42b983;
       color: white;
     }
-  </style>
+  </style> -->

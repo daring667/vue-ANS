@@ -6,7 +6,7 @@ import debounce from 'lodash.debounce'
 import CardList from '../components/CardList.vue'
 
 const { cart, addToCart, removeFromCart } = inject('cart')
-const { addToFavorite } = useFavorites()
+const { addToFavorite, fetchFavorites } = useFavorites()
 
 const items = ref([])
 
@@ -31,25 +31,16 @@ const onChangeSearchInput = debounce((event) => {
   filters.searchQuery = event.target.value
 }, 300)
 
-const fetchFavorites = async () => {
+const handleAddToFavorite = async (item) => {
   try {
-    const { data: favorites } = await axios.get(`https://34a43f60562e814c.mokky.dev/favorites`)
-
-    items.value = items.value.map((item) => {
-      const favorite = favorites.find((favorite) => favorite.item_id === item.id)
-
-      if (!favorite) {
-        return item
-      }
-
-      return {
-        ...item,
-        isFavorite: true,
-        favoriteId: favorite.id
-      }
-    })
+    const updatedItem = await addToFavorite(item)
+    // Обновляем элемент в массиве items
+    const index = items.value.findIndex((i) => i.id === item.id)
+    if (index !== -1) {
+      items.value[index] = updatedItem
+    }
   } catch (err) {
-    console.log(err)
+    console.log('Error handling favorite:', err)
   }
 }
 
@@ -67,14 +58,19 @@ const fetchItems = async () => {
       params
     })
 
+    // Получаем текущие избранные элементы
+    const favorites = await fetchFavorites()
+    const favoriteIds = favorites.map((fav) => fav.id)
+
     items.value = data.map((obj) => {
-      const existingItem = items.value.find((item) => item.id === obj.id)
+      const isFavorite = favoriteIds.includes(obj.id)
+      const favorite = favorites.find((f) => f.id === obj.id)
 
       return {
         ...obj,
-        isFavorite: existingItem?.isFavorite || false,
-        favoriteId: existingItem?.favoriteId || null,
-        isAdded: existingItem?.isAdded || false
+        isFavorite,
+        favoriteId: favorite?.favoriteId || null,
+        isAdded: cart.value.some((cartItem) => cartItem.id === obj.id)
       }
     })
   } catch (err) {
@@ -85,20 +81,13 @@ const fetchItems = async () => {
 onMounted(async () => {
   const localCart = localStorage.getItem('cart')
   cart.value = localCart ? JSON.parse(localCart) : []
-
   await fetchItems()
-  await fetchFavorites()
-
-  items.value = items.value.map((item) => ({
-    ...item,
-    isAdded: cart.value.some((cartItem) => cartItem.id === item.id)
-  }))
 })
 
 watch(cart, () => {
   items.value = items.value.map((item) => ({
     ...item,
-    isAdded: false
+    isAdded: cart.value.some((cartItem) => cartItem.id === item.id)
   }))
 })
 
@@ -129,7 +118,7 @@ watch(filters, fetchItems)
   </div>
 
   <div class="card-list-container">
-    <CardList :items="items" @add-to-favorite="addToFavorite" @add-to-cart="onClickAddPlus" />
+    <CardList :items="items" @add-to-favorite="handleAddToFavorite" @add-to-cart="onClickAddPlus" />
   </div>
 </template>
 
