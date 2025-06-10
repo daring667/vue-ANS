@@ -73,24 +73,8 @@ watch(router.currentRoute, () => {
   </header>
 
   <main class="content-area">
-    <h1>Список товаров Neo-commerce</h1>
-
-  <div v-if="products.length === 0">
-    <p>Загрузка товаров...</p>
-  </div>
-  <div v-else>
-    <div class="product-list">
-      <div v-for="product in products" :key="product.id" class="product-card">
-        <h3>{{ product.title }}</h3>
-        <p>Цена: {{ product.price }} $</p>
-        <!-- <p>Категория: {{ product.category }}</p> -->
-        <img :src="`http://localhost:4000${product.image}`" :alt="product.title" class="product-image" />
-        <button>Добавить в корзину</button>
-      </div>
-    </div>
-  </div>
+    <RouterView />
   </main>
-  <RouterView />
 </template>
 
 

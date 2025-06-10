@@ -3,6 +3,7 @@
     <h1>Корзина</h1>
     <p>Здесь будут товары в корзине.</p>
   </div>
+  <RouterView />
 </template>
 
 <style scoped>
