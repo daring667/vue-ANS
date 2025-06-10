@@ -1,0 +1,117 @@
+<script setup>
+import { ref, computed } from 'vue'
+import AuthModal from './AuthModal.vue'
+
+defineProps({
+  totalPrice: Number
+})
+
+const emit = defineEmits(['openDrawer'])
+const showAuthModal = ref(false)
+const isAuth = computed(() => localStorage.getItem('isAuth') === 'true')
+
+const toggleAuthModal = () => {
+  showAuthModal.value = !showAuthModal.value
+}
+
+const logout = () => {
+  localStorage.removeItem('isAuth')
+  localStorage.removeItem('currentUser')
+  window.location.reload()
+}
+</script>
+
+<template>
+  <header class="header">
+    <router-link to="/">
+      <div class="logo-container">
+        <img src="/logo.png" alt="Logo" class="logo-img" />
+        <div>
+          <h2 class="title">Vue Sneakers</h2>
+          <p class="subtitle">Магазин лучших кроссовок</p>
+        </div>
+      </div>
+    </router-link>
+
+    <ul class="nav-list">
+      <li @click="() => emit('openDrawer')" class="nav-item">
+        <img src="/cart.svg" alt="Cart" />
+        <b>{{ totalPrice }} руб.</b>
+      </li>
+
+      <router-link to="/favorites">
+        <li class="nav-item">
+          <img src="/heart.svg" alt="Cart" />
+          <span>Закладки</span>
+        </li>
+      </router-link>
+
+      <li v-if="!isAuth" @click="toggleAuthModal" class="nav-item">
+        <img src="/profile.svg" alt="Profile" />
+        <span>Войти</span>
+      </li>
+
+      <li v-else class="nav-item" @click="logout">
+        <img src="/profile.svg" alt="Profile" />
+        <span>Выйти</span>
+      </li>
+    </ul>
+
+    <AuthModal v-if="showAuthModal" @close="showAuthModal = false" />
+  </header>
+</template>
+
+<style scoped>
+.header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(226, 232, 240);
+  padding: 2rem 2.5rem;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo-img {
+  width: 2.5rem;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.75rem;
+  text-transform: uppercase;
+}
+
+.subtitle {
+  color: rgb(148, 163, 184);
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: rgb(107, 114, 128);
+  cursor: pointer;
+}
+
+.nav-item:hover {
+  color: rgb(0, 0, 0);
+}
+
+.nav-item img {
+  display: block;
+}
+</style>
