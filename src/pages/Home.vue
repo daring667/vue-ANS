@@ -145,6 +145,7 @@ watch(filters, fetchItems)
   font-size: 1.875rem;
   font-weight: 700;
   margin-bottom: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, bold;
 }
 
 .controls-container {
@@ -176,7 +177,7 @@ watch(filters, fetchItems)
   border: 1px solid #e2e8f0;
   border-radius: 0.375rem;
   outline: none;
-  width: 100%;
+  width: 80%;
 }
 
 .search-input:focus {

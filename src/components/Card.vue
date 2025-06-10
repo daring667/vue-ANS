@@ -21,7 +21,7 @@ defineProps({
       @click="onClickFavorite"
     />
 
-    <img :src="imageUrl" alt="Sneaker" />
+    <img :src="imageUrl" alt="Sneaker" class="sneakers_img" />
 
     <p class="title">{{ title }}</p>
 
@@ -43,6 +43,11 @@ defineProps({
 </template>
 
 <style scoped>
+.sneakers_img {
+  height: 150px;
+  width: 150px;
+}
+
 .sneaker-card {
   position: relative;
   background-color: white;

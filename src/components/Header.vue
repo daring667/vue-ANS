@@ -76,18 +76,22 @@ const logout = () => {
 }
 
 .logo-img {
-  width: 2.5rem;
+  width: 100px;
+  height: 100px;
 }
 
 .title {
   font-size: 1.25rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: black;
   font-weight: 700;
   line-height: 1.75rem;
-  text-transform: uppercase;
+  text-transform: uppercase;;
 }
 
 .subtitle {
   color: rgb(148, 163, 184);
+  text-decoration: none;
 }
 
 .nav-list {
