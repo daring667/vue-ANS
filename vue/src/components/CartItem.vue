@@ -11,7 +11,7 @@ defineProps({
 
 <template>
   <div class="cart-item">
-    <img class="product-img" :src="imageUrl" :alt="title" />
+   <img class="product-img" :src="`http://localhost:4000${imageUrl}`" :alt="title" />
 
     <div class="info-block">
       <p>{{ title }}</p>

@@ -21,7 +21,7 @@ defineProps({
       @click="onClickFavorite"
     />
 
-    <img :src="imageUrl" alt="Sneaker" class="sneakers_img" />
+    <img :src="`http://localhost:4000${imageUrl}`" alt="Sneaker" class="sneakers_img" />
 
     <p class="title">{{ title }}</p>
 

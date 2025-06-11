@@ -148,3 +148,37 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
     console.log(`Access it at http://localhost:${PORT}`);
 });
+
+// Получить избранное пользователя
+app.get('/api/favorites/:userId', (req, res) => {
+    const userId = parseInt(req.params.userId);
+    const favoritesPath = './src/data/favorites.json';
+    let favorites = [];
+    try {
+        favorites = JSON.parse(fs.readFileSync(favoritesPath, 'utf8'));
+    } catch (e) {}
+    const userFavorites = favorites.filter(fav => fav.userId === userId);
+    res.json(userFavorites);
+});
+
+// Добавить/удалить товар в избранное
+app.post('/api/favorites/toggle', (req, res) => {
+    const { userId, product } = req.body;
+    if (!userId || !product) {
+        return res.status(400).json({ message: 'userId и product обязательны.' });
+    }
+    const favoritesPath = './src/data/favorites.json';
+    let favorites = [];
+    try {
+        favorites = JSON.parse(fs.readFileSync(favoritesPath, 'utf8'));
+    } catch (e) {}
+
+    const exists = favorites.some(fav => fav.userId === userId && fav.product.id === product.id);
+    if (exists) {
+        favorites = favorites.filter(fav => !(fav.userId === userId && fav.product.id === product.id));
+    } else {
+        favorites.push({ userId, product });
+    }
+    fs.writeFileSync(favoritesPath, JSON.stringify(favorites, null, 2), 'utf8');
+    res.json({ success: true, favorites });
+});
